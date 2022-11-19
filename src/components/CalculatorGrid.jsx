@@ -1,10 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../stylesheets/CalculatorGrid.css";
 import Button from "./Button.jsx";
 
 function CalculatorGrid() {
   
-  const [result, setResult] = useState("0"); 
+  const [result, setResult] = useState(""); 
+
+  useEffect(() => {
+    console.log(result);
+  }, [result]);
+
+  function handleZeroBtn() {
+    if (result) {
+      setResult((prev) => prev + "0");
+    }
+  }
 
   function handleOneBtn() {
     setResult((prev) => prev + "1");
@@ -42,40 +52,76 @@ function CalculatorGrid() {
     setResult((prev) => prev + "9");
   }
 
+  function handleAcBtn() {
+    setResult("");
+  }
+
+  function handlePercentageBtn() {
+    setResult((prev) => prev + "%");
+  }
+
+  function handleUndoBtn() {
+    setResult((prev) => prev.slice(0, prev.length - 1));
+  }
+
+  function handleDivisionBtn() {
+    setResult((prev) => prev + "/");
+  }
+
+  function handleMultiplication() {
+    setResult((prev) => prev + "x");
+  }
+
+  function handlePlusBtn() {
+    setResult((prev) => prev + "+");
+  }
+
+  function handleSubstractionBtn() {
+    setResult((prev) => prev + "-");
+  }
+
+  function handlePointBtn() {
+    if (result) {
+      setResult((prev) => prev + ".");
+    }
+  }
+
+  function handleAnsBtn() {
+    // Implement functionality 
+  }
+
   function handleChange(e) {
-    if (e.target.value.startsWith("0")) {
-      e.target.value.slice(1); 
-    } 
+    
   }
 
   return (
     <div className="calculator">
 
-      <input type="text" onChange={handleChange} value={result} className="input" />
+      <input type="text" onChange={handleChange} value={result} className="input" placeholder="0" />
 
-      <Button value="AC" />
-      <Button value="Undo" />
-      <Button value="%" />
-      <Button value="/" />
+      <Button value="AC" onClick={handleAcBtn} />
+      <Button value="Undo" onClick={handleUndoBtn} />
+      <Button value="%" onClick={handlePercentageBtn} />
+      <Button value="/" onClick={handleDivisionBtn} />
 
       <Button value="7" onClick={handleSevenBtn} />
       <Button value="8" onClick={handleEightBtn} />
       <Button value="9" onClick={handleNineBtn} />
-      <Button value="x" />
+      <Button value="x" onClick={handleMultiplication} />
 
       <Button value="4" onClick={handleFourBtn} />
       <Button value="5" onClick={handleFiveBtn} />
       <Button value="6" onClick={handleSixBtn} />
-      <Button value="-" />
+      <Button value="-" onClick={handleSubstractionBtn} />
 
       <Button value="1" onClick={handleOneBtn} />
       <Button value="2" onClick={handleTwoBtn} />
       <Button value="3" onClick={handleThreeBtn} />
-      <Button value="+" />
+      <Button value="+" onClick={handlePlusBtn} />
 
-      <Button value="Ans" />
-      <Button value="0" />
-      <Button value="." />
+      <Button value="Ans" onClick={handleAnsBtn} />
+      <Button value="0" onClick={handleZeroBtn} />
+      <Button value="." onClick={handlePointBtn} />
       <Button value="=" />
 
     </div>
