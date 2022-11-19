@@ -1,14 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "../stylesheets/CalculatorGrid.css";
 import Button from "./Button.jsx";
+import { evaluate } from "mathjs";
 
 function CalculatorGrid() {
-  
-  const [result, setResult] = useState(""); 
-
-  useEffect(() => {
-    console.log(result);
-  }, [result]);
+  const [result, setResult] = useState("");
 
   function handleZeroBtn() {
     if (result) {
@@ -31,7 +27,7 @@ function CalculatorGrid() {
   function handleFourBtn() {
     setResult((prev) => prev + "4");
   }
-  
+
   function handleFiveBtn() {
     setResult((prev) => prev + "5");
   }
@@ -69,7 +65,7 @@ function CalculatorGrid() {
   }
 
   function handleMultiplication() {
-    setResult((prev) => prev + "x");
+    setResult((prev) => prev + "*");
   }
 
   function handlePlusBtn() {
@@ -87,17 +83,24 @@ function CalculatorGrid() {
   }
 
   function handleAnsBtn() {
-    // Implement functionality 
+    // Implement functionality
   }
 
-  function handleChange(e) {
-    
+  function handleEqualBtn() {
+    setResult((prev) => evaluate(prev));
   }
+
+  function handleChange(e) {}
 
   return (
     <div className="calculator">
-
-      <input type="text" onChange={handleChange} value={result} className="input" placeholder="0" />
+      <input
+        type="text"
+        onChange={handleChange}
+        value={result}
+        className="input"
+        placeholder="0"
+      />
 
       <Button value="AC" onClick={handleAcBtn} />
       <Button value="Undo" onClick={handleUndoBtn} />
@@ -122,8 +125,7 @@ function CalculatorGrid() {
       <Button value="Ans" onClick={handleAnsBtn} />
       <Button value="0" onClick={handleZeroBtn} />
       <Button value="." onClick={handlePointBtn} />
-      <Button value="=" />
-
+      <Button value="=" onClick={handleEqualBtn} />
     </div>
   );
 }
