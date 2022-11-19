@@ -5,6 +5,7 @@ import { evaluate } from "mathjs";
 
 function CalculatorGrid() {
   const [result, setResult] = useState("");
+  const [ans, setAns] = useState("");
 
   function handleZeroBtn() {
     if (result) {
@@ -49,6 +50,7 @@ function CalculatorGrid() {
   }
 
   function handleAcBtn() {
+    setAns(result);
     setResult("");
   }
 
@@ -83,7 +85,7 @@ function CalculatorGrid() {
   }
 
   function handleAnsBtn() {
-    // Implement functionality
+    setResult((prev) => prev + ans);
   }
 
   function handleEqualBtn() {
