@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../stylesheets/CalculatorGrid.css";
 import Button from "./Button.jsx";
 import { evaluate } from "mathjs";
@@ -113,10 +113,10 @@ function CalculatorGrid() {
         result.endsWith("- ")
       ) {
         setResult((prev) => prev.slice(0, prev.length - 2) + " % ");
-        console.log("hi");
       } else {
         setResult((prev) => prev + " % ");
       }
+      setAfterClickEqualBtn(false);
     }
   }
 
@@ -139,6 +139,7 @@ function CalculatorGrid() {
       } else {
         setResult((prev) => prev + " / ");
       }
+      setAfterClickEqualBtn(false);
     }
   }
 
@@ -155,6 +156,7 @@ function CalculatorGrid() {
       } else {
         setResult((prev) => prev + " * ");
       }
+      setAfterClickEqualBtn(false);
     }
   }
 
@@ -171,6 +173,7 @@ function CalculatorGrid() {
       } else {
         setResult((prev) => prev + " + ");
       }
+      setAfterClickEqualBtn(false);
     }
   }
 
@@ -187,6 +190,7 @@ function CalculatorGrid() {
       } else {
         setResult((prev) => prev + " - ");
       }
+      setAfterClickEqualBtn(false);
     }
   }
 
@@ -202,6 +206,9 @@ function CalculatorGrid() {
 
   function handleEqualBtn() {
     if (result) {
+      if (result.startsWith("=")) {
+        setResult(result.slice(2));
+      }
       setResult((prev) => "= " + evaluate(prev));
       setAfterClickEqualBtn(true);
     }
